@@ -6,9 +6,9 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons: [
-            { name: "max", age: 28 },
-            { name: "manu", age: 29},
-            { name: "Stefenie", age: 24}
+            { id: "qwe1", name: "max", age: 28 },
+            { id: "qwe2", name: "manu", age: 29},
+            { id: "qwe3", name: "Stefenie", age: 24}
         ],
         otherPersons: "blabla",
         showPersons: false
@@ -18,22 +18,31 @@ class App extends Component {
         this.setState({
             // setState will merge the old one, 没有改变的state会保留，比如 otherPersons
             persons: [
-                { name: newName, age: 28 },
-                { name: "manu", age: 29},
-                { name: "Stefenie", age: 35}
-            ]
+                { id: "qwe1", name: "max", age: 28 },
+                { id: "qwe2", name: "manu", age: 29},
+                { id: "qwe3", name: "Stefenie", age: 24}
+            ],
+            otherPersons: "blabla",
+            showPersons: false
         })
     };
 
-    nameChangeHandler = (event) => {
+    nameChangeHandler = (event, id) => {
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        // const person = Object.assign({}, this.state.persons[personIndex]); alternative way
+        const person = {...this.state.persons[personIndex]};
+        person.name = event.target.value;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
         this.setState({
             // setState will merge the old one, 没有改变的state会保留，比如 otherPersons
-            persons: [
-                { name: "max", age: 28 },
-                { name: event.target.value, age: 21},
-                { name: "Stefenie", age: 24}
-            ]
-        })
+            persons: persons
+        });
     };
 
     togglePersonHandler = () => {
@@ -42,7 +51,8 @@ class App extends Component {
     };
 
     deletePersonHandler = (personIndex) => {
-        const persons = this.state.persons.slice();
+        // const persons = this.state.persons.slice();  alternative way
+        const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
     };
@@ -65,7 +75,9 @@ class App extends Component {
                         return <Person
                             click={() => this.deletePersonHandler(index)}
                             name={person.name}
-                            age = {person.age} />
+                            age = {person.age}
+                            key = {person.id}
+                            changed = {(event) => this.nameChangeHandler(event, person.id)}/>
                     })}
                 </div>
             )
