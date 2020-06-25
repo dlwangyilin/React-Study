@@ -51,6 +51,24 @@ class App extends Component {
 
         };
 
+        let persons = null;
+        if (this.state.showPersons) {
+            persons = (
+                <div>
+                    <Person name = {this.state.persons[0].name}
+                            age = {this.state.persons[0].age}
+                            click = {this.switchNameHandler.bind(this, "Rafael")}
+                    />
+                    <Person name = {this.state.persons[1].name}
+                            age = {this.state.persons[1].age}
+                            changed={this.nameChangeHandler}>
+                        Hobby is soccer
+                    </Person>
+                    <Person name = {this.state.persons[2].name} age = {this.state.persons[2].age}/>
+                </div>
+            )
+        }
+
         return (
             <div className="App">
                 <h1>
@@ -62,22 +80,7 @@ class App extends Component {
                 <button onClick={this.switchNameHandler.bind(this, "xizi")}>Switch Names</button>
                 {/*函数不加()是因为需要传递函数指针，而加了()直接会执行这个函数。传递函数时，可以通过匿名函数传递参数，但是效率不高*/}
                 <button onClick={this.togglePersonHandler} style={style}>Toggle Names</button>
-                { this.state.showPersons ?
-                    <div>
-                        <Person name = {this.state.persons[0].name}
-                                age = {this.state.persons[0].age}
-                                click = {this.switchNameHandler.bind(this, "Rafael")}
-                        />
-                        <Person name = {this.state.persons[1].name}
-                                age = {this.state.persons[1].age}
-                                changed={this.nameChangeHandler}>
-                            Hobby is soccer
-                        </Person>
-                        <Person name = {this.state.persons[2].name} age = {this.state.persons[2].age}/>
-                    </div> : null
-                }
-
-
+                {persons}
             </div>
         );
     }
