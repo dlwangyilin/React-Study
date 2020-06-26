@@ -3,6 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
 
+// require('dotenv').config({path: "../.env"});
+
+console.log(process.env.REACT_APP_TEST);
+
 class App extends Component {
     state = {
         persons: [
@@ -66,6 +70,8 @@ class App extends Component {
             cursor: 'pointer',
 
         };
+
+
 
         let persons = null;
         if (this.state.showPersons) {
