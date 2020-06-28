@@ -63,15 +63,14 @@ class App extends Component {
 
     render() {
         const style = {
-            backgroundColor: 'White',
+            backgroundColor: 'green',
+            color: 'white',
             font: 'inherit',
             border: '1x solid blue',
             padding: '8px',
             cursor: 'pointer',
 
         };
-
-
 
         let persons = null;
         if (this.state.showPersons) {
@@ -86,7 +85,16 @@ class App extends Component {
                             changed = {(event) => this.nameChangeHandler(event, person.id)}/>
                     })}
                 </div>
-            )
+            );
+            style.backgroundColor = 'red';
+        }
+
+        let classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red');
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold');
         }
 
         return (
@@ -94,7 +102,7 @@ class App extends Component {
                 <h1>
                     This is new React App.
                 </h1>
-                <p>
+                <p className={classes.join(' ')}>
                     This is working
                 </p>
                 <button onClick={this.switchNameHandler.bind(this, "xizi")}>Switch Names</button>

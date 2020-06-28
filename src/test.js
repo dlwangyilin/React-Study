@@ -1,4 +1,7 @@
 require('dotenv').config({path: "../.env"});
 
-const test = process.env.REACT_APP_TEST;
-console.log(test);
+const foo = (props) => {
+    console.log(props);
+};
+
+foo("hello Woerd");
