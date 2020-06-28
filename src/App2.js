@@ -1,7 +1,7 @@
 // Use React hook
 import React, {useState} from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.module.css';
 import Person from './Person/Person';
 
 const app = (props) => {
