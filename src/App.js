@@ -1,12 +1,26 @@
 import React, {Component} from 'react';
-import Radium, {StyleRoot} from "radium";
+
 import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import styled from "styled-components";
 
 // require('dotenv').config({path: "../.env"});
 
 console.log(process.env.REACT_APP_TEST);
+
+const StyleButton = styled.button`
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: white;
+    font: inherit;
+    border: 1x solid blue;
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: black;
+    }
+`;  // ``之间写的是纯css语句
 
 class App extends Component {
     state = {
@@ -63,18 +77,6 @@ class App extends Component {
     };
 
     render() {
-        const style = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1x solid blue',
-            padding: '8px',
-            cursor: 'pointer',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        };
 
         let persons = null;
         if (this.state.showPersons) {
@@ -90,11 +92,7 @@ class App extends Component {
                     })}
                 </div>
             );
-            style.backgroundColor = 'red';
-            style[':hover'] = {
-                backgroundColor: 'lightred',
-                color: 'black'
-            }
+
         }
 
         let classes = [];
@@ -106,7 +104,7 @@ class App extends Component {
         }
 
         return (
-            <StyleRoot>
+
             <div className="App">
                 <h1>
                     This is new React App.
@@ -116,12 +114,12 @@ class App extends Component {
                 </p>
                 <button onClick={this.switchNameHandler.bind(this, "xizi")}>Switch Names</button>
                 {/*函数不加()是因为需要传递函数指针，而加了()直接会执行这个函数。传递函数时，可以通过匿名函数传递参数，但是效率不高*/}
-                <button onClick={this.togglePersonHandler} style={style}>Toggle Names</button>
+                <StyleButton alt={this.state.showPersons} onClick={this.togglePersonHandler}>Toggle Names</StyleButton>
                 {persons}
             </div>
-            </StyleRoot>
+
         );
     }
 }
 
-export default Radium(App);
+export default App;
