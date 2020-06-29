@@ -1,8 +1,8 @@
 // Use React hook
 import React, {useState} from 'react';
 import logo from './logo.svg';
-import './App.module.css';
-import Person from './Person/Person';
+import './containers/App.module.css';
+import Person from './Components/Persons/Person/Person';
 
 const app = (props) => {
     const [personState, setPersonState] = useState(

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import classes from './App.module.css';
-import Person from './Person/Person';
-
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Components/Cockpit/Cockpit';
 
 class App extends Component {
     state = {
@@ -62,49 +62,28 @@ class App extends Component {
     render() {
 
         let persons = null;
-        let btnClasses = [classes.Button];
 
         if (this.state.showPersons) {
             persons = (
                 <div>
-                    {this.state.persons.map((person, index) => {
-                        return <Person
-                            click={() => this.deletePersonHandler(index)}
-                            name={person.name}
-                            age = {person.age}
-                            key = {person.id}
-                            changed = {(event) => this.nameChangeHandler(event, person.id)}/>
-                    })}
+                    <Persons
+                        persons={this.state.persons}
+                        clicked={this.deletePersonHandler}
+                        changed={this.nameChangeHandler}
+                    />
                 </div>
             );
-
-            btnClasses.push(classes.Red);
-
-        }
-
-        let assignedClasses = [];
-        if (this.state.persons.length <= 2) {
-            assignedClasses.push(classes.red);
-        }
-        if (this.state.persons.length <= 1) {
-            assignedClasses.push(classes.bold);
         }
 
         return (
-
             <div className={classes.App}>
-                <h1>
-                    This is new React App.
-                </h1>
-                <p className={assignedClasses.join(' ')}>
-                    This is working
-                </p>
-                <button onClick={this.switchNameHandler.bind(this, "xizi")}>Switch Names</button>
-                {/*函数不加()是因为需要传递函数指针，而加了()直接会执行这个函数。传递函数时，可以通过匿名函数传递参数，但是效率不高*/}
-                <button className={btnClasses.join(' ')} onClick={this.togglePersonHandler}>Toggle Names</button>
+                <Cockpit
+                showPersons={this.state.showPersons}
+                persons={this.state.persons}
+                clicked={this.togglePersonHandler}
+                />
                 {persons}
             </div>
-
         );
     }
 }
