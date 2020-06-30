@@ -17,7 +17,7 @@ const cockpit = (props) => {
     return (
         <div className={classes.Cockpit}>
             <h1>
-                This is new React App.
+                {props.title}
             </h1>
             <p className={assignedClasses.join(' ')}>
                 This is working
