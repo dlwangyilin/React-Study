@@ -6,15 +6,21 @@ import Persons from '../Components/Persons/Persons';
 import Cockpit from '../Components/Cockpit/Cockpit';
 
 class App extends Component {
-    state = {
-        persons: [
-            { id: "qwe1", name: "max", age: 28 },
-            { id: "qwe2", name: "manu", age: 29},
-            { id: "qwe3", name: "Stefenie", age: 24}
-        ],
-        otherPersons: "blabla",
-        showPersons: false
-    };
+    constructor(props) {
+        super(props);
+        console.log("App.js constructor");
+        this.state = {
+            persons: [
+                { id: "qwe1", name: "max", age: 28 },
+                { id: "qwe2", name: "manu", age: 29},
+                { id: "qwe3", name: "Stefenie", age: 24}
+            ],
+            otherPersons: "blabla",
+            showPersons: false,
+            changedCount:0
+        };
+    }
+
 
     switchNameHandler = (newName) => {
         this.setState({
@@ -40,10 +46,13 @@ class App extends Component {
 
         const persons = [...this.state.persons];
         persons[personIndex] = person;
-
-        this.setState({
-            // setState will merge the old one, 没有改变的state会保留，比如 otherPersons
-            persons: persons
+        // setState will merge the old one, 没有改变的state会保留，比如 otherPersons
+        // 当setState依赖于旧的state时候，应该使用这种形式
+        this.setState((preState, props) => {
+            return {
+                persons: persons,
+                changedCount: preState.changedCount + 1
+            };
         });
     };
 
