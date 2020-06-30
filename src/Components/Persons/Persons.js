@@ -1,5 +1,6 @@
 import React from "react";
 import Person from "./Person/Person";
+import PropTypes from 'prop-types';
 
 const persons = (props) => (
     props.persons.map((person, index) => {
@@ -29,5 +30,10 @@ const persons = (props) => {
 (props) => {YY} YY是一个函数，必须显示的return结果。所以这里有两种写法
  */
 
-
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+};
 export default persons;
