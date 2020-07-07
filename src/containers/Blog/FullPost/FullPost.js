@@ -8,10 +8,11 @@ class FullPost extends Component {
       loadedPost: null
     };
 
-    componentDidUpdate() {
-        if (this.props.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-                let url = '/posts/' + this.props.id;
+    componentDidMount() {
+        console.log(this.props);
+        if (this.props.match.params.id) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)) {
+                let url = '/posts/' + this.props.match.params.id;
                 axios.get(url).then(response => {
                     console.log(response);
                     this.setState({loadedPost: response.data})
@@ -28,6 +29,7 @@ class FullPost extends Component {
     }
 
     render () {
+        console.log("In full post");
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
         if (this.props.id) {
             post = <p style={{textAlign: 'center'}}>Loading!</p>;
