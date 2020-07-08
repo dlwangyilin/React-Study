@@ -10,8 +10,16 @@ class FullPost extends Component {
 
     componentDidMount() {
         console.log(this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadData();
+    }
+
+    loadData() {
         if (this.props.match.params.id) {
-            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)) {
+            if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id)) {
                 let url = '/posts/' + this.props.match.params.id;
                 axios.get(url).then(response => {
                     console.log(response);
@@ -22,16 +30,16 @@ class FullPost extends Component {
     }
 
     deletePostHandler = () => {
-        let url = '/posts/' + this.props.id;
+        let url = '/posts/' + this.props.match.params.id;  // id is the route parameter defined in Posts.js. Name must be matched.
         axios.delete(url).then(response => {
             console.log(response);
         });
-    }
+    };
 
     render () {
         console.log("In full post");
         let post = <p style={{textAlign: 'center'}}>Please select a Post!</p>;
-        if (this.props.id) {
+        if (this.props.match.params.id) {
             post = <p style={{textAlign: 'center'}}>Loading!</p>;
         }
         if (this.state.loadedPost) {

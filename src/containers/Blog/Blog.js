@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import NewPost from './NewPost/NewPost';
 import './Blog.css';
 import Posts from './Posts/Posts';
-import {Route, NavLink, Switch} from "react-router-dom";
+import {Route, NavLink, Switch, Redirect} from "react-router-dom";
 import FullPost from "./FullPost/FullPost";
 
 class Blog extends Component {
@@ -14,13 +14,13 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><NavLink to="/"
+                            <li><NavLink to="/posts"
                                          exact
                                          activeClassName="my-active"
                                          activeStyle={{
                                              color: '#fa923f',
                                              textDecoration: 'underline'
-                                         }}>Home</NavLink></li>
+                                         }}>Posts</NavLink></li>
                             <li><NavLink to={{
                                 pathname: 'new-post',
                                 hash: '#submit',
@@ -32,9 +32,9 @@ class Blog extends Component {
                 </header>
 
                 <Switch>
-                    <Route path="/" exact component={Posts} />
+                    <Route path="/posts" component={Posts} />
                     <Route path="/new-post" component={NewPost} />
-                    <Route path="/:id" exact component={FullPost} />
+                    <Redirect from="/" to="/posts" />
                 </Switch>
 
 
